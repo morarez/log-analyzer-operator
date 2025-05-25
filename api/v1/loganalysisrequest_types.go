@@ -17,31 +17,30 @@ limitations under the License.
 package v1
 
 import (
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
-// LogAnalysisRequestSpec defines the desired state of LogAnalysisRequest.
+// LogAnalysisRequestSpec defines the desired state
 type LogAnalysisRequestSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-
-	// Foo is an example field of LogAnalysisRequest. Edit loganalysisrequest_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	ObjectRef corev1.ObjectReference `json:"objectRef"`
+	TailLines *int64                 `json:"tailLines,omitempty"`
 }
 
-// LogAnalysisRequestStatus defines the observed state of LogAnalysisRequest.
+// LogAnalysisRequestStatus defines the observed state
 type LogAnalysisRequestStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	Diagnosis string      `json:"diagnosis,omitempty"`
+	Resolved  bool        `json:"resolved,omitempty"`
+	Timestamp metav1.Time `json:"timestamp,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 
-// LogAnalysisRequest is the Schema for the loganalysisrequests API.
+// LogAnalysisRequest is the Schema for the loganalysisrequests API
 type LogAnalysisRequest struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
@@ -52,7 +51,7 @@ type LogAnalysisRequest struct {
 
 // +kubebuilder:object:root=true
 
-// LogAnalysisRequestList contains a list of LogAnalysisRequest.
+// LogAnalysisRequestList contains a list of LogAnalysisRequest
 type LogAnalysisRequestList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
